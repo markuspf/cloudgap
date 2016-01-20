@@ -1,0 +1,91 @@
+{% extends "page.html" %}
+
+{% block login_widget %}
+{% endblock %}
+
+{% block main %}
+
+{% block login %}
+<div id="login-main" class="container">
+{% if custom_html %}
+{{ custom_html }}
+{% elif login_service %}
+<div class="service-login">
+  <a class='btn btn-jupyter btn-lg' href='{{login_url}}'>
+    Sign in with {{login_service}}
+  </a>
+</div>
+{% else %}
+<form action="{{login_url}}?next={{next}}" method="post" role="form">
+  <div class="auth-form-header">
+    Sign in
+  </div>
+  <div class='auth-form-body'>
+    {% if login_error %}
+    <p class="login_error">
+      {{login_error}}
+    </p>
+    {% endif %}
+    <label for="username_input">Username:</label>
+    <input
+      id="username_input"
+      type="username"
+      autocapitalize="off"
+      autocorrect="off"
+      class="form-control"
+      name="username"
+      val="{{username}}"
+      tabindex="1"
+      autofocus="autofocus"
+    />
+    <label for='password_input'>Password:</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password_input"
+      tabindex="2"
+    />
+
+    <input
+      type="submit"
+      id="login_submit"
+      class='btn btn-jupyter'
+      value='Sign In'
+      tabindex="3"
+    />
+  </div>
+</form>
+{% endif %}
+</div>
+{% endblock login %}
+
+<div id="logos" class="container">
+  <img src="static/images/GapLogo.png" width=23%/>
+  <img src="static/images/jupyter.png" width=23%/>
+  <img src="static/images/odk-logo.png" width=23% />
+  <img src="static/images/azure.png" width=23%></img>
+</div>
+
+<div class="container">
+  <p>
+    This is part of the <a href="http://www.opendreamkit.org/">OpenDreamKit</a> Horizon 2020 project.
+  </p>
+  <p>
+    We thank Microsoft Azure for their support through the Microsoft Azure Research Award.
+  </p>
+
+  <span id="jupyterhub-logo" class="pull-left">
+    <img class="eurologo" width=20% src="static/images/Flag_of_Europe.svg"></img>
+      This project has received funding from the European Union's Horizon 2020 research and
+      innovation programme under grant agreement No 676541
+  </span>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+{{super()}}
+
+{% endblock %}
